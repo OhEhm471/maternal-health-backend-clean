@@ -6,20 +6,31 @@ import {
   toggleUserBlock,
   getMetrics,
   getAllClinics,
-  updateClinic
+  updateClinic,
+  getAllAppointments,
+  getAllSOSAlerts,
 } from '../controllers/adminController.js';
 
 const router = express.Router();
 
-// Apply auth + admin guard to all routes
+// 🔐 Admin Guard for All Routes
 router.use(auth, isAdmin);
 
+// 📊 Platform Metrics
+router.get('/metrics', getMetrics);
+
+// 👤 Users Management
 router.get('/users', getAllUsers);
 router.put('/users/:id/block', toggleUserBlock);
 
-router.get('/metrics', getMetrics);
-
+// 🏥 Clinics
 router.get('/clinics', getAllClinics);
 router.put('/clinics/:id', updateClinic);
+
+// 📅 Appointments
+router.get('/appointments', getAllAppointments);
+
+// 🚨 SOS Alerts
+router.get('/sos-alerts', getAllSOSAlerts);
 
 export default router;
